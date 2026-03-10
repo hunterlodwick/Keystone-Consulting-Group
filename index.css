@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-charcoal: #2D2D2D;
+  --color-charcoal-dark: #1E1E1E;
+  --color-teal: #008080;
+  --color-teal-soft: #66B2B2;
+  --color-offwhite: #F5F5F0;
+  --color-slate: #4A4A4A;
+  --color-slate-dark: #3A3A3A;
+}
+
+body {
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
+  font-family: var(--font-sans);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Noise overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  transform: translateZ(0);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: 4rem;
+}
+
+.marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  min-width: 100%;
+  gap: 4rem;
+  animation: scroll 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 4rem));
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.ease-custom {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Scroll Fade-ins */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Staggering children */
+.stagger-children > .animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children > .animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children > .animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+.stagger-children > .animate-on-scroll:nth-child(4) { transition-delay: 0.4s; }
+.stagger-children > .animate-on-scroll:nth-child(5) { transition-delay: 0.5s; }
+.stagger-children > .animate-on-scroll:nth-child(6) { transition-delay: 0.6s; }
+.stagger-children > .animate-on-scroll:nth-child(7) { transition-delay: 0.7s; }
+.stagger-children > .animate-on-scroll:nth-child(8) { transition-delay: 0.8s; }
+.stagger-children > .animate-on-scroll:nth-child(9) { transition-delay: 0.9s; }
+.stagger-children > .animate-on-scroll:nth-child(10) { transition-delay: 1.0s; }
+
+/* Card Hover Effects */
+.card-hover-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+.card-hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 200, 180, 0.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-hover-effect:hover {
+    transform: none;
+  }
+}
+
+/* Hero POS Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.hero-pos-float {
+  animation: float 3s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pos-float {
+    animation: none;
+  }
+}
+
+/* Savings Slider Transitions */
+.savings-number {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .savings-number {
+    transition: none;
+  }
+}
+
+/* Logo Marquee Pause */
+.marquee-container:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* CTA Button Pulse */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 128, 128, 0); }
+  50% { box-shadow: 0 0 20px 0 rgba(0, 128, 128, 0.3); }
+}
+.cta-button-pulse {
+  animation: pulse-glow 2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-button-pulse {
+    animation: none;
+  }
+}

@@ -12,8 +12,13 @@ export default function DashboardPage({ onNavigate, onOpenModal }: { onNavigate:
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
-    <div className="min-h-screen bg-charcoal-dark font-sans text-offwhite selection:bg-teal selection:text-white flex overflow-hidden">
-      
+    <div className="min-h-screen bg-charcoal-dark font-sans text-offwhite selection:bg-teal selection:text-white flex overflow-hidden flex-col">
+      {/* Demo-only banner — this is not a real authenticated merchant portal */}
+      <div className="w-full bg-amber-600/90 text-charcoal-dark text-center text-sm font-medium py-2 px-4 z-50 shrink-0">
+        DEMO ONLY — Sample UI with fictional data. Not a live merchant portal. No real financial data or account access.
+      </div>
+
+      <div className="flex flex-1 overflow-hidden">
       {/* Sidebar Navigation */}
       <aside className={`fixed inset-y-0 left-0 z-40 w-64 bg-charcoal border-r border-white/5 transform transition-transform duration-300 ease-in-out md:translate-x-0 md:relative ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="h-full flex flex-col">
@@ -25,6 +30,7 @@ export default function DashboardPage({ onNavigate, onOpenModal }: { onNavigate:
                 <polygon points="15,70 30,65 50,80 50,95" fill="#008080" />
               </svg>
               <span className="font-serif text-lg font-medium text-white tracking-wide">Keystone</span>
+              <span className="ml-1 text-[10px] uppercase tracking-wider text-amber-400/90 border border-amber-400/40 px-1.5 py-0.5 rounded">Demo</span>
             </button>
             <button className="md:hidden text-offwhite/50 hover:text-white" onClick={toggleSidebar}>
               <X className="w-5 h-5" />
@@ -66,7 +72,7 @@ export default function DashboardPage({ onNavigate, onOpenModal }: { onNavigate:
             <button className="md:hidden text-offwhite/60 hover:text-white" onClick={toggleSidebar}>
               <Menu className="w-5 h-5" />
             </button>
-            <h1 className="font-serif text-xl text-white">Welcome, {businessName}</h1>
+            <h1 className="font-serif text-xl text-white">Demo Preview — {businessName}</h1>
           </div>
           <div className="flex items-center gap-4 text-offwhite/60">
             <button className="hover:text-white transition-colors"><Search className="w-5 h-5" /></button>
@@ -214,8 +220,8 @@ export default function DashboardPage({ onNavigate, onOpenModal }: { onNavigate:
                   <div className="w-10 h-10 rounded-full bg-teal/20 flex items-center justify-center text-teal mb-4 border border-teal/30">
                     <DollarSign className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-serif text-white mb-2">You've saved <span className="text-teal font-medium tracking-tight">$8,700</span> this year with Keystone.</h3>
-                  <p className="text-sm text-offwhite/60 font-light mb-6 leading-relaxed">By utilizing The Edge Program, you've completely eliminated your processing fees, keeping 100% of your revenue.</p>
+                  <h3 className="text-xl font-serif text-white mb-2">Sample savings: <span className="text-teal font-medium tracking-tight">$8,700</span>/yr (demo figures)</h3>
+                  <p className="text-sm text-offwhite/60 font-light mb-6 leading-relaxed">Illustrative example of The Edge Program — not live account data. Real reporting requires an authenticated merchant portal.</p>
                   
                   <div className="bg-white/5 rounded-lg p-4 flex flex-col gap-2">
                     <div className="flex justify-between text-xs">
@@ -238,10 +244,9 @@ export default function DashboardPage({ onNavigate, onOpenModal }: { onNavigate:
               {/* Show-case CTA */}
               <div className="bg-teal/10 border border-teal/20 rounded-xl p-6 text-center shadow-[0_0_30px_rgba(0,128,128,0.1)]">
                 <h3 className="text-white font-medium mb-2">Want this for your business?</h3>
-                <p className="text-xs text-offwhite/60 mb-6 leading-relaxed">This is a showcase of the Keystone merchant portal. Experience true transparency and savings.</p>
+                <p className="text-xs text-offwhite/60 mb-6 leading-relaxed">This is a demo mockup only — figures are fictional sample data, not a live merchant portal. Contact us to learn about real Keystone reporting.</p>
                 <button 
                   onClick={() => {
-                    // Navigate back home then open modal, or just trigger callback if passing action
                     window.location.href = '/#contact';
                   }}
                   className="w-full inline-flex items-center justify-center px-4 py-3 bg-teal text-white text-sm font-medium rounded transition-all hover:bg-teal-soft"
@@ -254,6 +259,7 @@ export default function DashboardPage({ onNavigate, onOpenModal }: { onNavigate:
           </div>
         </div>
       </main>
+      </div>
     </div>
   );
 }

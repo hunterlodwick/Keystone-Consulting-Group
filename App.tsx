@@ -32,8 +32,8 @@ import {
   Star,
   Play
 } from 'lucide-react';
-import IndustryPageTemplate from './pages/IndustryPageTemplate';
-import DashboardPage from './pages/DashboardPage';
+import IndustryPageTemplate from './IndustryPageTemplate';
+import DashboardPage from './DashboardPage';
 
 // Custom Hooks for Animations
 function useScrollAnimation() {
@@ -398,9 +398,9 @@ export const ContactForm = () => {
     setStatus('loading');
     
     const formData = new FormData(e.currentTarget);
+    // Proxied through /api/contact so the Web3Forms access key stays server-side.
+    // If you ever expose a Web3Forms key client-side, domain-allowlist it in the Web3Forms dashboard.
     const data = {
-      access_key: (import.meta as any).env?.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_WEB3FORMS_KEY",
-      subject: "New Contact Request - Keystone Consulting",
       name: `${formData.get('firstName')} ${formData.get('lastName')}`,
       email: formData.get('email'),
       phone: formData.get('phone'),
@@ -409,7 +409,7 @@ export const ContactForm = () => {
     };
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data)
@@ -474,18 +474,17 @@ const StatementAnalysisForm = () => {
     setStatus('loading');
     
     const formData = new FormData(e.currentTarget);
+    // Proxied through /api/statement-analysis so the Web3Forms access key stays server-side.
+    // If you ever expose a Web3Forms key client-side, domain-allowlist it in the Web3Forms dashboard.
     const data = {
-      access_key: (import.meta as any).env?.VITE_WEB3FORMS_ACCESS_KEY || "YOUR_WEB3FORMS_KEY",
-      subject: "New Statement Analysis Request - Keystone Consulting",
       name: formData.get('businessName'),
       email: formData.get('email'),
       phone: formData.get('phone') || 'Not provided',
       volume: formData.get('volume') || 'Not provided',
-      message: `Processing Volume: $${formData.get('volume') || 'Not provided'} | Phone: ${formData.get('phone') || 'Not provided'}`
     };
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const response = await fetch('/api/statement-analysis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data)
@@ -1769,6 +1768,7 @@ export default function App() {
     '/nonprofits', '/b2b'
   ];
 
+  // /dashboard is an unauthenticated demo showcase with fictional sample data only.
   if (currentPath === '/dashboard') {
     return <DashboardPage 
       onNavigate={(path) => {

@@ -15,6 +15,6 @@ View your app in AI Studio: https://ai.studio/apps/15f715e7-d610-4d0e-a456-c960f
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+2. Copy `.env.example` to `.env` and set `WEB3FORMS_ACCESS_KEY` (server-only) plus `ALLOWED_ORIGINS` for your production domain
 3. Run the app:
    `npm run dev`

@@ -3,7 +3,7 @@ import {
   CheckCircle, Shield, Menu, X, ArrowUp, MonitorSmartphone, 
   CreditCard, BarChart3, Percent, DollarSign 
 } from 'lucide-react';
-import { ContactForm } from '../App';
+import { ContactForm } from './App';
 
 export const INDUSTRY_LANDING_PAGES: Record<string, any> = {
   'restaurants': {
